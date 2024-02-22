@@ -6,6 +6,7 @@ use App\Models\Checklist;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
@@ -149,7 +150,20 @@ class TaskController extends Controller
             dd($e->getMessage());
         }
     }
-
+public function checklistsUpdate(Request $request, $id)
+{
+    try{
+        Checklist::where('task_id',$id)->update([
+            'is_complete'=>0
+        ]);
+        Checklist::whereIn('id',$request->checklists)->update([
+            'is_complete'=>1
+        ]);
+        return back();
+    }catch (\Exception $e){
+       dd($e->getMessage());
+    }
+}
     /**
      * Remove the specified resource from storage.
      */

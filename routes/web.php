@@ -49,6 +49,7 @@ Route::group(
             Route::post('/tasks/{id}/update', 'update')->name('tasks.update');
             Route::get('/tasks/{id}/activate', 'activate')->name('tasks.activate');
             Route::get('/tasks/{id}/deactivate', 'deactivate')->name('tasks.deactivate');
+            Route::post('/tasks/{id}/checklists', 'checklistsUpdate')->name('checklists.update');
         });
     }
 );
