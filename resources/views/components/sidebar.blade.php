@@ -48,8 +48,8 @@
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="javascript:void(0)"><i
                                     data-feather="users"></i><span>Salaries</span></a>
                             <ul class="sidebar-submenu">
-                                <li><a href="{{ route('employees') }}">All Salaries</a></li>
-                                <li><a href="{{ route('employees.create') }}">Add Salaries </a></li>
+                                <li><a href="{{ route('salaries') }}">All Salaries</a></li>
+                                <li><a href="{{ route('salaries.generate') }}">Generate Salaries </a></li>
                             </ul>
                         </li>
                     @endif

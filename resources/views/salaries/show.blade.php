@@ -12,57 +12,51 @@
                                         <div class="row">
                                             <div class="col-12 ">
                                                 <div class="project-box row">
-                                                    <h3 class="text-center mb-5">{{$employee->name}} </h3>
+
                                                     <div class="col-md-6 card p-4">
-                                                        <h5 class="text-center ">Employee Details </h5>
-                                                    <p class="mb-0"> <strong>Current Status: </strong> {{$employee->status}}</p>
-                                                    <p class="mb-0"> <strong>Assigned To: </strong> {{ $employee->user->name}}</p>
-                                                    <p class="mb-0"> <strong>Employee Number: </strong> {{$employee->employee_number}}</p>
-                                                    <p class="mb-0"> <strong>employee Description </strong></p>
-                                                    <p class="mb-0">  {{$employee->description}}</p>
+                                                        <h5 class="text-center ">salary Details </h5>
+                                                    <p class="mb-0 d-flex justify-content-between"> <strong>Employee Number: </strong> {{$salary->employee->employee_number}}</p>
+                                                    <p class="mb-0 d-flex justify-content-between"> <strong>Employee Name: </strong> {{ $salary->employee->user->name.' '.$salary->employee->surname}}</p>
+                                                        <p class="mb-0 d-flex justify-content-between"> <strong>Gross Salary : </strong> ${{$salary->gross_salary}}</p>
+                                                        <p class="mb-0 d-flex justify-content-between"> <strong>Salary Deductions: </strong> ${{$salary->deductions}}</p>
+                                                        <p class="mb-0 d-flex justify-content-between"> <strong>Salary Bonuses: </strong> ${{$salary->bonuses}}</p>
+                                                        <p class="mb-0 d-flex justify-content-between"> <strong>Net Salary : </strong> ${{$salary->net_salary}}</p>
+
+
 
                                                     </div>
                                                     <div class="col-12 card p-4">
-                                                        <h5 class="text-center ">{{$employee->user->name}} Tasks </h5>
+                                                        <h5 class="text-center ">Salary Summary </h5>
                                                         <table class="display" id="export-button">
                                                             <thead>
                                                             <tr>
 
-                                                                <th>Reference</th>
-                                                                <th>Name</th>
-                                                                <th>Start Date</th>
-                                                                <th>Due Date</th>
+                                                                <th>Task Reference</th>
                                                                 <th>Reward</th>
-                                                                <th>Priority</th>
-                                                                <th>Adjustable</th>
-                                                                <th>Status</th>
+                                                                <th>Deduction</th>
+                                                                <th>Bonus</th>
                                                                 <th>Action</th>
 
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            @forelse ($employee->tasks as $task)
+                                                            @forelse ($salary->tasks as $task)
                                                                 <tr>
-                                                                    <td>{{ $task->reference_number }}</td>
-                                                                    <td>{{ $task->name}}</td>
-                                                                    <td>{{ $task->start_date }}</td>
-                                                                    <td>{{ $task->due_date }}</td>
-                                                                    <td>{{ $task->reward }}</td>
-                                                                    <td>{{ $task->priority->name }}</td>
-                                                                    <td>{{ $task->is_adjustable?'Yes':'No' }}</td>
-                                                                    <td>{{ $task->status }}</td>
-                                                                    @if(Auth::user()->role=='Admin' || Auth::user()->role=='Branch_Admin' )
+                                                                    <td><a  href="{{ route('tasks.show', [$task->task->id]) }}" >{{ $task->task->reference_number }}</a></td>
+                                                                    <td>${{ $task->reward}}</td>
+                                                                    <td>${{ $task->deduction }}</td>
+                                                                    <td>${{ $task->bonus }}</td>
                                                                         <td>
                                                                             <ul class="action">
                                                                                 <li class="edit">
-                                                                                    <a href="{{ route('tasks.show', [$task->id]) }}"class=" text-primary px-2 mr d-flex justify-content-center align-items-center">
+                                                                                    <a href="{{ route('tasks.show', [$task->task->id]) }}"class=" text-primary px-2 mr d-flex justify-content-center align-items-center">
                                                                                         <i data-feather="eye"></i>
                                                                                     </a>
                                                                                 </li>
 
                                                                             </ul>
                                                                         </td>
-                                                                    @endif
+
                                                                 </tr>
                                                             @empty
                                                             @endforelse

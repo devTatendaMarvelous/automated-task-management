@@ -17,7 +17,9 @@ class Task extends Model
         "reward",
         "start_date" ,
         "due_date" ,
-        "status" ,'reference_number',
+        "status" ,
+        'deadline_met',
+        'reference_number',
     ];
     public function employee()
     {
@@ -30,5 +32,10 @@ class Task extends Model
     public function checklists()
     {
         return $this->hasMany(Checklist::class);
+    }
+    public function salaryTask()
+    {
+        return $this->hasOne(SalaryTask::class);
+
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Salary;
 use App\Http\Requests\StoreSalaryRequest;
 use App\Http\Requests\UpdateSalaryRequest;
+use Illuminate\Support\Facades\Artisan;
 
 class SalaryController extends Controller
 {
@@ -13,7 +14,7 @@ class SalaryController extends Controller
      */
     public function index()
     {
-        //
+       return view('salaries.index')->with('salaries',Salary::latest()->get());
     }
 
     /**
@@ -35,17 +36,18 @@ class SalaryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Salary $salary)
+    public function show($id)
     {
-        //
+        return view('salaries.show')->with('salary',Salary::find($id));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Salary $salary)
+    public function generate()
     {
-        //
+        Artisan::call('salaries' );
+        return redirect('salaries');
     }
 
     /**

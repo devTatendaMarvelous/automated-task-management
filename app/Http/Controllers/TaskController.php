@@ -6,6 +6,7 @@ use App\Models\Checklist;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,6 +17,7 @@ class TaskController extends Controller
      */
     public function index()
     {
+
         return view('tasks.index')->with('tasks',Task::latest()->get());
     }
 
@@ -174,10 +176,14 @@ public function checklistsUpdate(Request $request, $id)
             }
         }
         if ($count==$completed){
+            $due_date=Carbon::parse($task->due_date);
+            if (!$due_date->isPast()){
+                $task->deadline_met=1;
+            }
             $task->status='complete';
             $task->save();
+            generateSalaryTasks($task);
         }
-
         return back();
     }catch (\Exception $e){
        dd($e->getMessage());

@@ -55,27 +55,17 @@
                                                 <td>
                                                     <ul class="action">
                                                         <li class="edit">
-                                                            <a  href="{{ route('employees.edit', [$employee->id]) }}"class="btn btn-primary text-white px -2 mr"><small><svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        width="15" height="15"
-                                                                        viewBox="0 0 24 24">
-                                                                        <g id="feEdit0" fill="none"
-                                                                            fill-rule="evenodd" stroke="none"
-                                                                            stroke-width="1">
-                                                                            <g id="feEdit1" fill="currentColor">
-                                                                                <path id="feEdit2"
-                                                                                    d="M5 20h14a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Zm-1-5L14 5l3 3L7 18H4v-3ZM15 4l2-2l3 3l-2.001 2.001L15 4Z" />
-                                                                            </g>
-                                                                        </g>
-                                                                    </svg></small></a></li>
+                                                            <a  href="{{ route('employees.show', [$employee->id]) }}"class="text-primary ">
+                                                                <i data-feather="eye"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li class="edit">
+                                                            <a  href="{{ route('employees.edit', [$employee->id]) }}"class="text-primary ">
+                                                                <i data-feather="edit"></i>
+                                                            </a>
+                                                        </li>
                                                         <li class="delete"><a
-                                                                href="{{ route('employees.delete', [$employee->id]) }}"class="btn btn-danger text-white px- 2"><small><svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        width="15" height="15"
-                                                                        viewBox="0 0 24 24">
-                                                                        <path fill="currentColor"
-                                                                            d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z" />
-                                                                    </svg></small></a></li>
+                                                                href="{{ route('employees.delete', [$employee->id]) }}"class="text-danger text-sm"><i data-feather="trash-2"></i></a></li>
                                                     </ul>
                                                 </td>
                                                     @endif

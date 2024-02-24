@@ -52,6 +52,15 @@ Route::group(
             Route::get('/tasks/{id}/deactivate', 'deactivate')->name('tasks.deactivate');
             Route::post('/tasks/{id}/checklists', 'checklistsUpdate')->name('checklists.update');
         });
+        Route::controller(SalaryController::class)->group(function () {
+            Route::get('/salaries', 'index')->name('salaries');
+            Route::get('/salaries/create', 'create')->name('salaries.create');
+            Route::get('/salaries/{id}/edit', 'edit')->name('salaries.edit');
+            Route::get('/salaries/{id}/delete', 'destroy')->name('salaries.delete');
+            Route::get('/salaries/{id}/show', 'show')->name('salaries.show');
+            Route::get('/salaries/generate', 'generate')->name('salaries.generate');
+        });
+
     }
 );
 
