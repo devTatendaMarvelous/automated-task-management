@@ -47,9 +47,11 @@
                                                         @endforelse
                                                             </div>
                                                             @if(auth()->user()->id==$task->employee->user_id or auth()->user()->role=="Admin")
+                                                                @if($task->status=='active')
                                                                 <div class="d-flex justify-content-center align-items-end">
                                                                     <button type="submit" class="btn btn-primary">Update Progress</button>
                                                                 </div>
+                                                                @endif
                                                             @endif
 
                                                         </form>

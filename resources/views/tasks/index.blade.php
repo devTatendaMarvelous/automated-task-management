@@ -39,6 +39,7 @@
                                             <th>Reward</th>
                                             <th>Priority</th>
                                             <th>Adjustable</th>
+                                            <th>Status</th>
                                             <th>Action</th>
 
                                         </tr>
@@ -48,20 +49,19 @@
                                             <tr>
                                                 <td>{{ $task->reference_number }}</td>
                                                 <td>{{ $task->name}}</td>
-                                                <td>{{ $task->employee->user->name." ".$task->employee->surname }}</td>
+                                                <td><a href="{{route('employees.show',[$task->employee->id])}}">{{ $task->employee->employee_number }}</a> </td>
                                                 <td>{{ $task->start_date }}</td>
                                                 <td>{{ $task->due_date }}</td>
                                                 <td>{{ $task->reward }}</td>
                                                 <td>{{ $task->priority->name }}</td>
                                                 <td>{{ $task->is_adjustable?'Yes':'No' }}</td>
+                                                <td>{{ $task->status }}</td>
                                                 @if(Auth::user()->role=='Admin' || Auth::user()->role=='Branch_Admin' )
                                                 <td>
                                                     <ul class="action">
                                                         <li class="edit">
                                                             <a href="{{ route('tasks.show', [$task->id]) }}"class=" text-primary px-2 mr d-flex justify-content-center align-items-center">
-
                                                                     view
-
                                                             </a>
                                                         </li>
                                                         <li class="edit">

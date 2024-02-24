@@ -65,11 +65,11 @@
                                     </div>
                                     <div class="mb-3 col-3">
                                         <h6 class="form-label">Start Date</h6>
-                                        <input class="form-control" name="start_date" type="datetime-local" value="{{$task->start_date}}">
+                                        <input class="form-control" name="start_date" type="date" value="{{$task->start_date}}">
                                     </div>
                                     <div class="mb-3 col-3">
                                         <h6 class="form-label">Due Date</h6>
-                                        <input class="form-control" name="due_date" type="datetime-local" value="{{$task->due_date}}">
+                                        <input class="form-control" name="due_date" type="date" value="{{$task->due_date}}">
                                     </div>
 
                                     <div class="mb-3 col-2 d-flex align-items-center">

@@ -37,6 +37,7 @@ Route::group(
             Route::post('/employees', 'store')->name('employees.store');
             Route::post('/employees/{id}/update', 'update')->name('employees.update');
             Route::get('/employees/{id}/activate', 'activate')->name('employees.activate');
+            Route::get('/employees/{id}/show', 'show')->name('employees.show');
             Route::get('/employees/{id}/deactivate', 'deactivate')->name('employees.deactivate');
         });
         Route::controller(TaskController::class)->group(function () {

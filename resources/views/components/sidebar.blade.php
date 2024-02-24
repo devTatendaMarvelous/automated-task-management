@@ -35,6 +35,8 @@
                             </ul>
                         </li>
                     @endif
+
+
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="javascript:void(0)"><i
                                 data-feather="users"></i><span>Tasks</span></a>
                         <ul class="sidebar-submenu">
@@ -42,7 +44,15 @@
                             <li><a href="{{ route('tasks.create') }}">Add Task </a></li>
                         </ul>
                     </li>
-
+                    @if (Auth::user()->role == 'Admin')
+                        <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="javascript:void(0)"><i
+                                    data-feather="users"></i><span>Salaries</span></a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="{{ route('employees') }}">All Salaries</a></li>
+                                <li><a href="{{ route('employees.create') }}">Add Salaries </a></li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
             </div>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

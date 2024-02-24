@@ -58,15 +58,18 @@ class TaskController extends Controller
                 $task->is_adjustable=$request->is_adjustable;
             }
             $task->save();
-            $data=$request->all();
-            $checklists=$data['checklists'];
-            $descriptions=$data['descriptions'];
-            for($i=0;$i<sizeof($checklists);$i++){
-                $checklist=new Checklist();
-                $checklist->task_id=$task->id;
-                $checklist->name=$checklists[$i];
-                $checklist->description=$descriptions[$i];
-                $checklist->save();
+            if ($request->has('checklists')){
+                $data=$request->all();
+                $checklists=$data['checklists'];
+                $descriptions=$data['descriptions'];
+
+                for($i=0;$i<sizeof($checklists);$i++){
+                    $checklist=new Checklist();
+                    $checklist->task_id=$task->id;
+                    $checklist->name=$checklists[$i];
+                    $checklist->description=$descriptions[$i];
+                    $checklist->save();
+                }
             }
             DB::commit();
             return redirect('tasks');
@@ -133,15 +136,18 @@ class TaskController extends Controller
                 $task->is_adjustable=$request->is_adjustable;
             }
             $task->save();
-            $data=$request->all();
-            $checklists=$data['checklists'];
-            $descriptions=$data['descriptions'];
-            for($i=0;$i<sizeof($checklists);$i++){
-                $checklist=new Checklist();
-                $checklist->task_id=$id;
-                $checklist->name=$checklists[$i];
-                $checklist->description=$descriptions[$i];
-                $checklist->save();
+            if ($request->has('checklists')) {
+                $data = $request->all();
+                $checklists = $data['checklists'];
+                $descriptions = $data['descriptions'];
+
+                for ($i = 0; $i < sizeof($checklists); $i++) {
+                    $checklist = new Checklist();
+                    $checklist->task_id = $task->id;
+                    $checklist->name = $checklists[$i];
+                    $checklist->description = $descriptions[$i];
+                    $checklist->save();
+                }
             }
             DB::commit();
             return redirect('tasks');
@@ -159,6 +165,19 @@ public function checklistsUpdate(Request $request, $id)
         Checklist::whereIn('id',$request->checklists)->update([
             'is_complete'=>1
         ]);
+        $task = Task::find($id);
+        $count=$task->checklists->count();
+        $completed=0;
+        foreach ($task->checklists as $checklist){
+            if ($checklist->is_complete){
+                $completed++;
+            }
+        }
+        if ($count==$completed){
+            $task->status='complete';
+            $task->save();
+        }
+
         return back();
     }catch (\Exception $e){
        dd($e->getMessage());

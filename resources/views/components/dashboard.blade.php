@@ -8,7 +8,7 @@
 
     <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
-    <title>Schedule Your Driving Lessons with Us!</title>
+    <title>Automated Task Management</title>
 
     {{--    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/font-awesome.css') }}"> --}}
     <!-- ico-font-->
