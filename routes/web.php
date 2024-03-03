@@ -10,8 +10,6 @@ Route::controller(App\Http\Controllers\Auth\ResetPasswordController::class)->gro
     Route::post('/password/sendmail', 'sendMail')->name('password.sendMail');
     Route::post('/password/updatep', 'update')->name('password.updateP');
 });
-Route::post('/student/register', [UserController::class, 'store'])->name('studreg');
-Route::get('/notifications', [App\Http\Controllers\UserController::class, 'notify']);
 
 Route::group(
     ['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'],

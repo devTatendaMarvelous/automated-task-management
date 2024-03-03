@@ -46,13 +46,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function student(){
-        return $this->hasOne(Student::class);
-    }
-    public function instructor(){
-        return $this->hasOne(Instructor::class);
-    }
-    public function cars(){
-        return $this->hasMany(Car::class, 'user_id');
+    public function employee(){
+        return $this->hasOne(Employee::class);
     }
 }

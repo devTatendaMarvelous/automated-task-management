@@ -67,7 +67,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-6 p-0 footer-left">
-                            <p class="mb-0">Copyright © 2024 Automated Employee Task System. All rights reserved.</p>
+                            <p class="mb-0">Copyright © 2024 Automated  Task Management System. All rights reserved.</p>
                         </div>
                         <div class="col-md-6 p-0 footer-right">
                             <p class="mb-0">Hand-crafted & Created by MESSIAH TATENDA HOGO</p>

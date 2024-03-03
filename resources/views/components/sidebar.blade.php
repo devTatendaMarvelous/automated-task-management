@@ -1,7 +1,7 @@
 <div class="sidebar-wrapper">
     <div>
         <div class="logo-wrapper"><a href="/home"><img class="img-fluid for-light" src="{{ asset('logo.png') }}"
-                    alt="" style="max-width: 100px;"></a>
+                    alt="" style="max-width: 130px;"></a>
             <div class="back-btn"><i data-feather="grid"></i></div>
             <div class="toggle-sidebar icon-box-sidebar"><i class="status_toggle middle sidebar-toggle"
                     data-feather="grid"> </i>
@@ -38,7 +38,7 @@
 
 
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="javascript:void(0)"><i
-                                data-feather="users"></i><span>Tasks</span></a>
+                                data-feather="check-square"></i><span>Tasks</span></a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('tasks') }}">All Tasks</a></li>
                             <li><a href="{{ route('tasks.create') }}">Add Task </a></li>
@@ -46,7 +46,7 @@
                     </li>
                     @if (Auth::user()->role == 'Admin')
                         <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="javascript:void(0)"><i
-                                    data-feather="users"></i><span>Salaries</span></a>
+                                    data-feather="dollar-sign"></i><span>Salaries</span></a>
                             <ul class="sidebar-submenu">
                                 <li><a href="{{ route('salaries') }}">All Salaries</a></li>
                                 <li><a href="{{ route('salaries.generate') }}">Generate Salaries </a></li>

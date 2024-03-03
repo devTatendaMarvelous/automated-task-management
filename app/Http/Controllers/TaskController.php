@@ -6,6 +6,7 @@ use App\Models\Checklist;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +18,12 @@ class TaskController extends Controller
      */
     public function index()
     {
+        if (auth()->user()->role!='Admin'){
+            return view('tasks.index')->with('tasks', Task::where('employee_id',auth()->user()->employee->id)->latest()->get());
+        }else {
 
-        return view('tasks.index')->with('tasks',Task::latest()->get());
+            return view('tasks.index')->with('tasks', Task::latest()->get());
+        }
     }
 
     /**
@@ -74,10 +79,11 @@ class TaskController extends Controller
                 }
             }
             DB::commit();
+            Toastr::success('Task created successfully', 'success');
             return redirect('tasks');
         }catch (\Exception $e){
             DB::rollBack();
-            dd($e->getMessage());
+            Toastr::error('An Error occured', 'Error'); return back();
     }
     }
 
@@ -151,11 +157,12 @@ class TaskController extends Controller
                     $checklist->save();
                 }
             }
+            Toastr::success('Task Updated successfully', 'success');
             DB::commit();
             return redirect('tasks');
         }catch (\Exception $e){
             DB::rollBack();
-            dd($e->getMessage());
+            Toastr::error('An Error occured', 'Error');
         }
     }
 public function checklistsUpdate(Request $request, $id)
@@ -186,14 +193,17 @@ public function checklistsUpdate(Request $request, $id)
         }
         return back();
     }catch (\Exception $e){
-       dd($e->getMessage());
+       Toastr::error('An Error occured', 'Error'); return back();
     }
 }
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy($id)
     {
-        //
+        Task::find($id)->delete();
+        Toastr::success('Task Updated successfully', 'success');
+        return back();
+
     }
 }

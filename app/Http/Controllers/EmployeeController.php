@@ -6,6 +6,7 @@ use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Employee;
 use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
@@ -39,6 +40,7 @@ class EmployeeController extends Controller
         $employee['user_id'] = $user->id;
         $employee['employee_number'] = 'EMP-' . random_int(1000, 9999);
         Employee::create($employee);
+        Toastr::success('Employee created successfully', 'success');
         return redirect('employees');
     }
 
@@ -64,22 +66,30 @@ class EmployeeController extends Controller
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
         $employee=$employee->first();
-        $request->validate(["name" => "required","surname" => "required", "email" => "required", "phone" => "required", "status" => "required", "address" => "required",]);
+        $request->validate(["name" => "required",
+            "surname" => "required",
+            "email" => "required",
+            "phone" => "required",
+            "status" => "required",
+            "address" => "required",
+            ]);
         $employeeData = $request->all();
         $employee->update($employeeData);
-
         $employee->user()->update([
             'name'=>$employeeData['name'],
             'email'=>$employeeData['email'],
         ]);
+        Toastr::success('Employee Updated successfully', 'success');
         return redirect('employees');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Employee $employee)
+    public function destroy($id)
     {
-        //
+        Employee::find($id)->delete();
+        Toastr::success('Employee deleted successfully', 'success');
+        return back();
     }
 }

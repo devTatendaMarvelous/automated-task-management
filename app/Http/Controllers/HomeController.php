@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
+use App\Models\Salary;
+use App\Models\Task;
 use Carbon\Carbon;
 use App\Models\Car;
 use App\Models\User;
@@ -33,6 +36,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if (auth()->user()->role!='Admin'){
+            return redirect('tasks');
+        }else{
+            $employees=Employee::all()->count();
+            $completedTasks=Task::where('status','complete')->count();
+            $activeTasks=Task::where('status','active')->latest()->get();
+            $payouts=Salary::sum('net_salary');
+
+
+            return view('home')
+                ->with('employees',$employees)
+                ->with('completedTasks',$completedTasks)
+                ->with('activeTasks',$activeTasks->count())
+                ->with('tasks',$activeTasks->take(6))
+            ->with('payouts',$payouts);
+        }
+
     }
 }

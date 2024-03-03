@@ -10,7 +10,7 @@
 
 <p>{{$mailData['message']}}</p>
 
-<p>*DISCLAIMER*</p>
+<p>Regards</p>
 
 </body>
 
