@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\PriorityLevel;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,5 +34,10 @@ class DatabaseSeeder extends Seeder
         foreach ($priorities as $priority){
             PriorityLevel::create($priority);
         }
+        User::create([
+            'name'=>'Admin',
+            'email'=>'admin@tms.com',
+            'password'=>Hash::make('password'),
+    ]);
     }
 }

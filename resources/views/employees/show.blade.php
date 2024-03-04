@@ -15,7 +15,7 @@
                                                     <h3 class="text-center mb-5">{{$employee->name}} </h3>
                                                     <div class="col-md-6 card p-4">
                                                         <h5 class="text-center ">Employee Details </h5>
-                                                    <p class="mb-0"> <strong>Current Status: </strong> {{$employee->status}}</p>
+                                                    <p class="mb-0"> <strong>Current Status: </strong> {{$employee->user->status}}</p>
                                                     <p class="mb-0"> <strong>Assigned To: </strong> {{ $employee->user->name}}</p>
                                                     <p class="mb-0"> <strong>Employee Number: </strong> {{$employee->employee_number}}</p>
                                                     <p class="mb-0"> <strong>employee Description </strong></p>

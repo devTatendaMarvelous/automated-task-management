@@ -21,7 +21,6 @@ class TaskController extends Controller
         if (auth()->user()->role!='Admin'){
             return view('tasks.index')->with('tasks', Task::where('employee_id',auth()->user()->employee->id)->latest()->get());
         }else {
-
             return view('tasks.index')->with('tasks', Task::latest()->get());
         }
     }
@@ -82,6 +81,7 @@ class TaskController extends Controller
             Toastr::success('Task created successfully', 'success');
             return redirect('tasks');
         }catch (\Exception $e){
+            dd($e->getMessage());
             DB::rollBack();
             Toastr::error('An Error occured', 'Error'); return back();
     }
