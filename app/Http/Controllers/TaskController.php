@@ -81,7 +81,7 @@ class TaskController extends Controller
             Toastr::success('Task created successfully', 'success');
             return redirect('tasks');
         }catch (\Exception $e){
-            dd($e->getMessage());
+
             DB::rollBack();
             Toastr::error('An Error occured', 'Error'); return back();
     }

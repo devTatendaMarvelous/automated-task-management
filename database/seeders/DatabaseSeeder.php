@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             'name'=>'Admin',
             'email'=>'admin@tms.com',
             'password'=>Hash::make('password'),
+            'role'=>'Admin'
     ]);
     }
 }
