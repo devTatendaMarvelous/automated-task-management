@@ -41,6 +41,7 @@ class EmployeeController extends Controller
             ]);
         $employee = $request->all();
         $employee['password'] = Hash::make('password');
+        $employee['status'] = 'active';
         $user = User::create($employee);
         $employee['user_id'] = $user->id;
         $employee['employee_number'] = 'EMP-' . random_int(1000, 9999);
@@ -83,7 +84,7 @@ class EmployeeController extends Controller
         $employee->user()->update([
             'name'=>$employeeData['name'],
             'email'=>$employeeData['email'],
-            'status'=>$employeeData['status'],
+            'status'=>'active',
         ]);
         Toastr::success('Employee Updated successfully', 'success');
         return redirect('employees');
