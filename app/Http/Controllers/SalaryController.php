@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Salary;
 use App\Http\Requests\StoreSalaryRequest;
 use App\Http\Requests\UpdateSalaryRequest;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Artisan;
 
 class SalaryController extends Controller
@@ -47,6 +48,7 @@ class SalaryController extends Controller
     public function generate()
     {
         Artisan::call('salaries' );
+        Toastr::success('Salaries Generated successfully', 'success');
         return redirect('salaries');
     }
 

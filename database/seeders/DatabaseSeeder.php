@@ -18,11 +18,13 @@ class DatabaseSeeder extends Seeder
                 'name'=>'High',
                 'bonus'=>5,
                 'deduction'=>7
-            ],  [
+            ],
+            [
                 'name'=>'Medium',
                 'bonus'=>3,
                 'deduction'=>5
-            ],  [
+            ],
+            [
                 'name'=>'Low',
                 'bonus'=>2,
                 'deduction'=>4

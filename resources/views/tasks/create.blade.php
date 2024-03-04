@@ -98,7 +98,7 @@
                             </div>
                         </div>
                          <div class="form-footer d-flex justify-content-center ">
-                              <button class="btn btn-primary btn-block col-4">Update </button>
+                              <button class="btn btn-primary btn-block col-4">Create </button>
                          </div>
                     </form>
                </div>

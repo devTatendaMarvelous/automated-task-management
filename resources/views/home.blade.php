@@ -90,7 +90,7 @@
                                         <div class="d-flex">
                                             <div class="flex-grow-1">
                                                 <div class="profit-wrapper header-text-primary icon-bg-primary"></div>
-                                                <h6 class="header-text-primary">0</h6>
+                                                <h6 class="header-text-primary">{{$activeTasks}}</h6>
 
                                             </div>
                                         </div>
