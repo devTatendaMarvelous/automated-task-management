@@ -41,7 +41,7 @@ class EmployeeController extends Controller
             ]);
         $employee = $request->all();
         $employee['password'] = Hash::make('password');
-        $employee['status'] = 'active';
+        $employee['status'] = 'Active';
         $user = User::create($employee);
         $employee['user_id'] = $user->id;
         $employee['employee_number'] = 'EMP-' . random_int(1000, 9999);
@@ -61,9 +61,9 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Employee $employee)
+    public function edit($id)
     {
-        return view('employees.edit')->with('employee',$employee->first());
+        return view('employees.edit')->with('employee',Employee::find($id));
     }
 
     /**
@@ -81,11 +81,14 @@ class EmployeeController extends Controller
             ]);
         $employeeData = $request->all();
         $employee->update($employeeData);
-        $employee->user()->update([
-            'name'=>$employeeData['name'],
-            'email'=>$employeeData['email'],
-            'status'=>'active',
-        ]);
+
+       $user= $employee->user()->first();
+
+        $user->name=$employeeData['name'];
+        $user->email=$employeeData['email'];
+         $user->status=$employeeData['status'];
+       $user->save();
+
         Toastr::success('Employee Updated successfully', 'success');
         return redirect('employees');
     }

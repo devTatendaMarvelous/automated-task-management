@@ -30,7 +30,6 @@
                                 <table class="display" id="export-button">
                                     <thead>
                                         <tr>
-
                                             <th>Reference</th>
                                             <th>Name</th>
                                             <th>Employee Assigned</th>
@@ -39,9 +38,9 @@
                                             <th>Reward</th>
                                             <th>Priority</th>
                                             <th>Adjustable</th>
+                                            <th>Deadline Met</th>
                                             <th>Status</th>
                                             <th>Action</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,6 +54,7 @@
                                                 <td>{{ $task->reward }}</td>
                                                 <td>{{ $task->priority->name }}</td>
                                                 <td>{{ $task->is_adjustable?'Yes':'No' }}</td>
+                                                <td>{{ $task->deadline_met?'Yes':'No' }}</td>
                                                 <td>{{ $task->status }}</td>
                                                 @if(Auth::user()->role=='Admin' || Auth::user()->role=='Branch_Admin' )
                                                 <td>

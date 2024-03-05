@@ -55,7 +55,7 @@
                                                 <td>
                                                     <ul class="action">
                                                         <li class="edit">
-                                                            <a  href="{{ route('employees.show', [$employee->id]) }}"class="text-primary ">
+                                                            <a  href="{{ route('employees.show', [$employee->id]) }}" class="text-primary ">
                                                                 <i data-feather="eye"></i>
                                                             </a>
                                                         </li>
