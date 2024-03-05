@@ -32,7 +32,14 @@
                                                             <p class="mb-0"> <strong> Tasks With Missed Deadlines: </strong> {{$employee->tasks->where('deadline_met',0)->count()}}</p>
                                                             <p class="mb-0"> <strong> Overall Employee Performance: </strong>
                                                                 @if($employee->tasks->where('status','complete')->count()>0)
-                                                                {{ round(($employee->tasks->where('deadline_met',1)->count()/$employee->tasks->where('status','complete')->count())*10, 1)}} of 10
+                                                                    {{ round(($employee->tasks->where('status','complete')->count()/$employee->tasks->count())*100, 1)}} %
+                                                                @else
+                                                                    No Tasks
+                                                                @endif
+                                                            </p>
+                                                            <p class="mb-0"> <strong> Overall Employee Rating: </strong>
+                                                                @if($employee->tasks->where('status','complete')->count()>0)
+                                                                    {{ round(($employee->tasks->where('deadline_met',1)->count()/$employee->tasks->where('status','complete')->count())*10, 1)}} of 10
                                                                 @else
                                                                     Unrated
                                                                 @endif
