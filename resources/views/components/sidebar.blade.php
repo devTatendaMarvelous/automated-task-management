@@ -53,6 +53,12 @@
                             </ul>
                         </li>
                     @endif
+                    @if (Auth::user()->role == 'Admin')
+                        <li class="sidebar-list"
+                        ><a class="sidebar-link sidebar-title" href="{{ route('employees',['analysis']) }}"><i
+                                    data-feather="activity"></i><span>Analysis</span></a>
+                        </li>
+                    @endif
                 </ul>
             </div>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

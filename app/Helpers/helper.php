@@ -30,3 +30,11 @@ function generateSalaryTasks($task){
         'reward'=>$task->reward
     ]);
 }
+
+function updateRating($employee)
+{
+    if($employee->tasks->where('status','complete')->count()>0){
+        $employee->rating=(float) ($employee->tasks->where('deadline_met',1)->count()/$employee->tasks->where('status','complete')->count())*10;
+        $employee->save();
+    }
+}

@@ -10,7 +10,7 @@ class Employee extends Model
 {
     use SoftDeletes, HasFactory;
 
-    protected $fillable = ['user_id', 'employee_number', 'middle_name', 'surname', 'phone', 'address'];
+    protected $fillable = ['user_id', 'employee_number', 'middle_name', 'surname', 'phone', 'address','rating'];
 
     public function user()
     {
@@ -22,5 +22,8 @@ class Employee extends Model
     return $this->hasMany(Task::class);
 
 }
-
+    public function comment()
+    {
+        return $this->hasOne(Comment::class)->latest();
+    }
 }

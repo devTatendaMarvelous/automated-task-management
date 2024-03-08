@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use App\Models\Comment;
 use App\Models\Employee;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
@@ -14,9 +16,14 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($type='')
     {
-        return view('employees.index')->with('employees', Employee::all());
+        if ($type=='analysis'){
+            return view('employees.analysis')->with('employees', Employee::orderBy('rating','desc')->get());
+        }else{
+            return view('employees.index')->with('employees', Employee::all());
+        }
+
     }
 
     /**
@@ -78,19 +85,29 @@ class EmployeeController extends Controller
             "phone" => "required",
             "status" => "required",
             "address" => "required",
-            ]);
+        ]);
         $employeeData = $request->all();
         $employee->update($employeeData);
 
-       $user= $employee->user()->first();
+        $user= $employee->user()->first();
 
         $user->name=$employeeData['name'];
         $user->email=$employeeData['email'];
-         $user->status=$employeeData['status'];
-       $user->save();
+        $user->status=$employeeData['status'];
+        $user->save();
 
         Toastr::success('Employee Updated successfully', 'success');
         return redirect('employees');
+    }
+
+    public function comment(Request $request,  $id)
+    {
+        Comment::create([
+            'employee_id'=>$id,
+            'comment'=>$request->comment
+        ]);
+        Toastr::success('Comment Captured successfully', 'success');
+        return back();
     }
 
     /**

@@ -28,7 +28,7 @@ Route::group(
             Route::get('/users/{id}/profile', 'profile')->name('users.profile');
         });
         Route::controller(EmployeeController::class)->group(function () {
-            Route::get('/employees', 'index')->name('employees');
+            Route::get('/employees/{type?}', 'index')->name('employees');
             Route::get('/employees/create', 'create')->name('employees.create');
             Route::get('/employees/{id}/edit', 'edit')->name('employees.edit');
             Route::get('/employees/{id}/delete', 'destroy')->name('employees.delete');
@@ -36,6 +36,9 @@ Route::group(
             Route::post('/employees/{id}/update', 'update')->name('employees.update');
             Route::get('/employees/{id}/activate', 'activate')->name('employees.activate');
             Route::get('/employees/{id}/show', 'show')->name('employees.show');
+            Route::post('/employees/{id}/comment', 'comment')->name('employees.comment');
+
+
             Route::get('/employees/{id}/deactivate', 'deactivate')->name('employees.deactivate');
         });
         Route::controller(TaskController::class)->group(function () {

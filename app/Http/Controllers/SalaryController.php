@@ -89,7 +89,7 @@ class SalaryController extends Controller
                         ]);
                     }
                 }
-
+                updateRating($employee);
                 DB::commit();
             });
 
