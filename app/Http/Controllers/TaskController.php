@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Checklist;
+use App\Models\Employee;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\User;
+use App\Wrappers\MailWrapper;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -77,6 +80,12 @@ class TaskController extends Controller
                     $checklist->save();
                 }
             }
+            $employee=Employee::find($request->employee_id);
+            MailWrapper::emailNotify($employee->email, [
+                'title' =>  'Task Assignment',
+                'message' => 'Good day '.$employee->user->name.' kindly note you have been assigned a task '.$request->name.'
+                 which is due on '.Carbon::parse($request->due_date)->format('d M Y'),
+            ]);
             DB::commit();
             Toastr::success('Task created successfully', 'success');
             return redirect('tasks');
@@ -131,7 +140,6 @@ class TaskController extends Controller
                 "status" => "required",
             ]);
             $task=Task::find($id);
-            $task->reference_number='TSK-'.random_int(100,99999);
             $task->priority_id=$request->priority_id;
             $task->employee_id=$request->employee_id;
             $task->name=$request->name;
@@ -168,30 +176,46 @@ class TaskController extends Controller
 public function checklistsUpdate(Request $request, $id)
 {
     try{
-        Checklist::where('task_id',$id)->update([
-            'is_complete'=>0
-        ]);
-        Checklist::whereIn('id',$request->checklists)->update([
-            'is_complete'=>1
-        ]);
-        $task = Task::find($id);
-        $count=$task->checklists->count();
-        $completed=0;
-        foreach ($task->checklists as $checklist){
-            if ($checklist->is_complete){
-                $completed++;
+            if (auth()->user()->role=='Employee'){
+                $checklist = Checklist::find($id);
+                $email=User::where('role','Admin')->first()->email;
+                MailWrapper::emailNotify($email, [
+                    'title' =>  'Task Completion',
+                    'message' => 'Good day, kindly note that checklist '.$checklist->name.' of task'
+                        .$checklist->task->reference_number.' is completed',
+                ]);
+                Toastr::success('Admin has been notified of the completion', 'success');
+                return back();
+            }else{
+                Checklist::where('task_id',$id)->update([
+                    'is_complete'=>0
+                ]);
+                Checklist::whereIn('id',$request->checklists)->update([
+                    'is_complete'=>1
+                ]);
+                $task = Task::find($id);
+                $count=$task->checklists->count();
+                $completed=0;
+                foreach ($task->checklists as $checklist){
+                    if ($checklist->is_complete){
+                        $completed++;
+                    }
+                }
+                if ($count==$completed){
+                    $due_date=Carbon::parse($task->due_date);
+                    if (!$due_date->isPast()){
+                        $task->deadline_met=1;
+                    }
+                    $task->status='complete';
+                    $task->save();
+                    generateSalaryTasks($task);
+                    Toastr::success('The task is now complete', 'success');
+                }else{
+                    Toastr::success('Progress updated successfully', 'success');
+                }
+                return back();
             }
-        }
-        if ($count==$completed){
-            $due_date=Carbon::parse($task->due_date);
-            if (!$due_date->isPast()){
-                $task->deadline_met=1;
-            }
-            $task->status='complete';
-            $task->save();
-            generateSalaryTasks($task);
-        }
-        return back();
+
     }catch (\Exception $e){
        Toastr::error('An Error occured', 'Error'); return back();
     }

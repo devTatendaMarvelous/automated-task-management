@@ -10,4 +10,9 @@ class Checklist extends Model
 {
     use SoftDeletes, HasFactory;
     protected $guarded=[];
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+
+    }
 }
