@@ -56,7 +56,7 @@
                                                 <td>{{ $task->is_adjustable?'Yes':'No' }}</td>
                                                 <td>{{ $task->deadline_met?'Yes':'No' }}</td>
                                                 <td>{{ $task->status }}</td>
-                                                @if(Auth::user()->role=='Admin' || Auth::user()->role=='Branch_Admin' )
+
                                                 <td>
                                                     <ul class="action">
                                                         <li class="edit">
@@ -64,6 +64,7 @@
                                                                 <i data-feather="eye"></i>
                                                             </a>
                                                         </li>
+                                                        @if(Auth::user()->role=='Admin' || Auth::user()->role=='Branch_Admin' )
                                                         <li class="edit">
                                                             <a href="{{ route('tasks.edit', [$task->id]) }}"class=" text-primary px-2 mr d-flex justify-content-center align-items-center">
                                                                 <i data-feather="edit"></i>
@@ -74,9 +75,10 @@
                                                                 <i data-feather="trash-2"></i>
                                                             </a>
                                                         </li>
+                                                        @endif
                                                     </ul>
                                                 </td>
-                                                    @endif
+
                                             </tr>
                                         @empty
                                         @endforelse
