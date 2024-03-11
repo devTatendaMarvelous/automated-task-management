@@ -81,7 +81,7 @@ class TaskController extends Controller
                 }
             }
             $employee=Employee::find($request->employee_id);
-            MailWrapper::emailNotify($employee->email, [
+            MailWrapper::emailNotify($employee->user->email, [
                 'title' =>  'Task Assignment',
                 'message' => 'Good day '.$employee->user->name.' kindly note you have been assigned a task '.$request->name.'
                  which is due on '.Carbon::parse($request->due_date)->format('d M Y'),
